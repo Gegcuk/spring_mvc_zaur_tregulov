@@ -1,17 +1,25 @@
 package uk.gegc.spring.mvc;
 
+import javax.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Employee {
+    @Size(min = 2, message = "min 2 symbols")
     private String name;
+    @NotBlank(message = "Surname can't be empty or blank")
     private String surname;
+    @Min(value = 100, message = "can't be less than 100")
+    @Max(value = 700, message = "can't be more than 701")
     private int salary;
     private String department;
     private Map<String, String> departments;
     private String carBrand;
     private Map<String, String> carBrands;
-
+    private String[] languages;
+    private Map<String, String> languagesList;
+    @Pattern(regexp = "\\d{3}-\\d{2}-\\d{2}", message = "please use pattern xxx-xx-xx")
+    private String phoneNumber;
 
     public Employee(){
         departments = new HashMap<>();
@@ -22,6 +30,10 @@ public class Employee {
         carBrands.put("BMW", "BMW");
         carBrands.put("Audi", "Audi");
         carBrands.put("Mercedes-Benz", "MB");
+        languagesList = new HashMap<>();
+        languagesList.put("English", "EN");
+        languagesList.put("French", "FR");
+        languagesList.put("Spanish", "ES");
     }
 
     public Map<String, String> getDepartments() {
@@ -78,6 +90,30 @@ public class Employee {
 
     public void setCarBrands(Map<String, String> carBrands) {
         this.carBrands = carBrands;
+    }
+
+    public Map<String, String> getLanguagesList() {
+        return languagesList;
+    }
+
+    public void setLanguagesList(Map<String, String> languagesList) {
+        this.languagesList = languagesList;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
