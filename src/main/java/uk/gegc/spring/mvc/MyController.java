@@ -2,12 +2,14 @@ package uk.gegc.spring.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/employee")
 public class MyController {
 
     @RequestMapping("/")
@@ -16,14 +18,23 @@ public class MyController {
     }
 
     @RequestMapping("/askDetails")
-    public String askEmployeeDetails(){
+    public String askEmployeeDetails(Model model){
+        Employee employee = new Employee();
+        employee.setName("Ivan");
+        employee.setSurname("Ivanov");
+        employee.setSalary(1111);
+        employee.setDepartment("HR");
+        model.addAttribute("employee", employee);
         return "ask-emp-details-view";
     }
 
     @RequestMapping("/showDetails")
-    public String showEmployeeDetails(@RequestParam("employeeName") String empName, Model model){
-        empName = "Mr. " + empName + " .";
-        model.addAttribute("nameAttribute", empName);
+    public String showEmployeeDetails(@ModelAttribute("employee") Employee employee){
+
+        String name = employee.getName();
+        employee.setName("Mr. " + name);
+
+
         return "show-emp-details-view";
     }
 
