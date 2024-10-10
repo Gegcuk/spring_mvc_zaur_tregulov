@@ -23,5 +23,7 @@ Language(s):
     </c:forEach>
 </ul>
 Phone number: ${employee.phoneNumber}
+<br>
+email: ${employee.email}
 </body>
 </html>
